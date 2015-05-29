@@ -943,14 +943,14 @@ public abstract class StatementDMQL extends Statement {
             voltAppendParameters(session, unionExpr, parameters);
 
             // Limit/Offset
-            List<VoltXMLElement> limitOffsetXml = voltGetLimitOffsetXMLFromSortAndSlice(session, queryExpr.sortAndSlice);
+            java.util.List<VoltXMLElement> limitOffsetXml = voltGetLimitOffsetXMLFromSortAndSlice(session, queryExpr.sortAndSlice);
             for (VoltXMLElement elem : limitOffsetXml) {
                 unionExpr.children.add(elem);
             }
 
             // Order By
             if (queryExpr.sortAndSlice.getOrderLength() > 0) {
-                List<Expression> displayCols = getDisplayColumnsForSetOp(queryExpr);
+                java.util.List<Expression> displayCols = getDisplayColumnsForSetOp(queryExpr);
                 java.util.Set<Integer> ignoredColsIndexes = new java.util.HashSet<Integer>();
 
                 VoltXMLElement orderCols = new VoltXMLElement("ordercolumns");
@@ -1003,7 +1003,7 @@ public abstract class StatementDMQL extends Statement {
     private static boolean hasLimitOrOrder(VoltXMLElement xmlElement) {
         String names[] = {"limit", "offset", "ordercolumns"};
         for (String name : names) {
-            List<VoltXMLElement> elements = xmlElement.findChildren(name);
+            java.util.List<VoltXMLElement> elements = xmlElement.findChildren(name);
             if (!elements.isEmpty()) {
                 return true;
             }
@@ -1015,7 +1015,7 @@ public abstract class StatementDMQL extends Statement {
      * Return a list of the display columns for the left most statement from a set op
      * @return
      */
-    private static List<Expression> getDisplayColumnsForSetOp(QueryExpression queryExpr) {
+    private static java.util.List<Expression> getDisplayColumnsForSetOp(QueryExpression queryExpr) {
         assert(queryExpr != null);
         if (queryExpr.getLeftQueryExpression() == null) {
             // end of recursion. This is a QuerySpecification
